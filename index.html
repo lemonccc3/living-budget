@@ -247,9 +247,9 @@ input::placeholder{color:#a18da0}
 </style></head><body><main><aside class="bunny-float" aria-label="奶糖兔兔互動夥伴">
   <div class="bunny-dialog" id="bunnyDialog" hidden>
     <button class="dialog-close" id="bunnyClose" type="button" aria-label="關閉對話">×</button>
-    <span class="chat-label">☆ 奶糖兔兔 ☆</span>
-    <p id="bunnyMessage" aria-live="polite">嗨！今天也一起照顧好我們的錢包吧！♡</p>
-    <button id="potionButton" type="button">設定本月預算</button>
+    <span class="chat-label">☆ 今日名言 ☆</span>
+    <p id="bunnyMessage" aria-live="polite">孔子：「知之者不如好之者，好之者不如樂之者。」</p>
+    
   </div>
   <button id="bunnyTap" class="bunny-character" type="button" aria-label="和奶糖兔兔互動" aria-expanded="false" aria-controls="bunnyDialog">
     <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="白色像素兔兔">
@@ -288,18 +288,30 @@ planIncomeForm.onsubmit=e=>{e.preventDefault();let name=piName.value.trim(),date
 planForm.onsubmit=e=>{e.preventDefault();let name=pName.value.trim(),date=pDate.value,obj={id:Date.now()+Math.random().toString(16),name,date,amountType:planType};if(planType==='range'){let lo=Number(pMin.value),hi=Number(pMax.value);if(!name||!date||lo<=0||hi<lo)return alert('請輸入正確的金額範圍');obj.minAmount=lo;obj.amount=hi}else{let a=Number(pAmount.value);if(!name||!date||a<=0)return alert('請輸入正確金額');obj.amount=a}state.planned.push(obj);save();planForm.reset();planType='exact';document.querySelectorAll('[data-pt]').forEach(b=>b.classList.toggle('active',b.dataset.pt==='exact'));singleAmount.hidden=false;rangeAmount.hidden=true;amountLabel.textContent='金額';pDate.value=today;selected=date;let q=date.split('-').map(Number);viewY=q[0];viewM=q[1]-1;render()};
 piDate.value=pDate.value=today;incomeToday.textContent=today;expenseToday.textContent=today;
 refreshApp.onclick=()=>{location.replace(location.pathname+'?refresh='+Date.now())};
-const bunnyLines=['嘿嘿！被你摸到了！今天也要記得記帳喔 ♡','存錢就像收集星星，一點一點也很棒！★','先想一想是真的需要，還是只是突然想買呢？','辛苦啦！休息一下，再來看看今天的收支吧！','我們一起把小錢錢照顧好，啾！'];
-let bunnyLineIndex=0;
+const bunnyQuotes=[
+  '孔子：「知之者不如好之者，好之者不如樂之者。」',
+  '老子：「千里之行，始於足下。」',
+  '荀子：「不積跬步，無以至千里。」',
+  '孟子：「生於憂患，死於安樂。」',
+  '陶淵明：「盛年不重來，一日難再晨。」',
+  '李白：「天生我材必有用。」',
+  '蘇軾：「回首向來蕭瑟處，歸去，也無風雨也無晴。」',
+  '王之渙：「欲窮千里目，更上一層樓。」',
+  '莎士比亞：「凡是過去，皆為序章。」',
+  '愛因斯坦：「想像力比知識更重要。」',
+  '海倫・凱勒：「人生最大的幸福，是確信有人愛我們。」'
+];
+let bunnyQuoteIndex=-1;
 function petBunny(){
-  const opening=bunnyDialog.hidden;
   bunnyDialog.hidden=false;
   bunnyTap.setAttribute('aria-expanded','true');
-  if(opening){bunnyMessage.textContent=bunnyLines[bunnyLineIndex% bunnyLines.length];}
-  else{bunnyLineIndex=(bunnyLineIndex+1)%bunnyLines.length;bunnyMessage.textContent=bunnyLines[bunnyLineIndex];}
+  let next=Math.floor(Math.random()*bunnyQuotes.length);
+  if(bunnyQuotes.length>1&&next===bunnyQuoteIndex)next=(next+1)%bunnyQuotes.length;
+  bunnyQuoteIndex=next;
+  bunnyMessage.textContent=bunnyQuotes[next];
 }
 bunnyTap.onclick=petBunny;
 bunnyClose.onclick=()=>{bunnyDialog.hidden=true;bunnyTap.setAttribute('aria-expanded','false');};
-potionButton.onclick=()=>setBudget.click();
 setBudget.onclick=()=>{let y=viewY,m=viewM,v=prompt('設定 '+y+' 年 '+(m+1)+' 月生活費',bf(y,m));if(v===null)return;let n=Number(v);if(!Number.isFinite(n)||n<0)return alert('請輸入正確金額');state.budgets[mk(y,m)]=n;if(y===now.getFullYear()&&m===now.getMonth())state.defaultBudget=n;save();render()};
 prev.onclick=()=>{if(--viewM<0){viewM=11;viewY--}selected=dk(viewY,viewM,1);render()};next.onclick=()=>{if(++viewM>11){viewM=0;viewY++}selected=dk(viewY,viewM,1);render()};
 exportBtn.onclick=()=>{let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.download='不要再亂花了備份-'+today+'.json';a.click()};
