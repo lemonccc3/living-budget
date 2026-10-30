@@ -229,12 +229,11 @@ input::placeholder{color:#a18da0}
 .bunny-actions{display:flex;gap:7px;flex-wrap:wrap}.bunny-actions button{font-size:11px;padding:8px 10px}
 #bunnyPat{background:#f7dce9}#potionButton{background:#e9e0f7;border-color:#9b83b3;color:#55436c}
 @media(max-width:370px){.bunny-companion{grid-template-columns:96px 1fr;padding:10px;gap:8px}.bunny-stage{min-height:112px}.bunny-art{width:54px;height:54px}.bunny-heading .banner-title{font-size:16px}.bunny-chat p{font-size:12px}}
-/* 兔兔縮成右下角的懸浮魔法球；未互動時只顯示圓球 */
-.bunny-float{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:1000;display:flex;flex-direction:column;align-items:flex-end;gap:10px;pointer-events:none}
-.bunny-orb{pointer-events:auto;position:relative;width:76px;height:76px;min-width:76px;padding:12px;border:4px solid #986f91;border-radius:50%;background:radial-gradient(circle at 35% 28%,#fff 0 12%,#fff4fb 42%,#e8d8f5 100%);box-shadow:0 3px 0 #d6b3d0,0 5px 14px #80617b40;display:grid;place-items:center;animation:orbFloat 3s ease-in-out infinite}
-.bunny-orb svg{width:100%;height:100%;shape-rendering:crispEdges;image-rendering:pixelated;filter:drop-shadow(1px 2px 0 #e7c5da)}
-.bunny-orb:active{transform:scale(.94)}
-.orb-sparkle{position:absolute;right:2px;top:1px;color:#d2ad5c;font-size:17px;text-shadow:0 1px #fff}
+/* 兔兔直接待在畫面角落，點擊才出現對話框 */
+.bunny-float{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:1000;display:flex;flex-direction:column;align-items:flex-end;gap:9px;pointer-events:none}
+.bunny-character{pointer-events:auto;position:relative;width:88px;height:104px;min-width:88px;padding:4px;border:0;border-radius:0;background:transparent;box-shadow:none;display:grid;place-items:center;animation:bunnyIdle 3s ease-in-out infinite}
+.bunny-character svg{width:100%;height:100%;overflow:visible;shape-rendering:crispEdges;image-rendering:pixelated;filter:drop-shadow(2px 3px 0 #e7c5da)}
+.bunny-character:active{transform:translateY(-4px) scale(1.04)}
 .bunny-dialog{pointer-events:auto;position:relative;width:min(270px,calc(100vw - 40px));padding:15px 15px 13px;background:#fffaff;border:3px solid #986f91;border-radius:17px 17px 5px 17px;box-shadow:4px 4px 0 #dfc2dc,0 6px 18px #72556b25;color:#5e4b65}
 .bunny-dialog[hidden]{display:none}
 .bunny-dialog:after{content:"";position:absolute;right:22px;bottom:-11px;width:17px;height:17px;background:#fffaff;border-right:3px solid #986f91;border-bottom:3px solid #986f91;transform:rotate(45deg)}
@@ -242,9 +241,9 @@ input::placeholder{color:#a18da0}
 .bunny-dialog p{margin:0 0 11px;padding:10px 11px;background:#fff0f7;border:2px solid #e4c6dd;border-radius:10px;color:#5e4b65;font-size:13px;line-height:1.65;min-height:48px}
 .dialog-close{position:absolute;right:8px;top:6px;border:0;background:transparent;box-shadow:none;color:#98758f;font-size:21px;padding:0 5px;min-width:28px;min-height:28px}
 #potionButton{font-size:12px;padding:8px 12px;background:#e9e0f7;border-color:#9b83b3;color:#55436c;border-radius:9px}
-@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-@media(prefers-reduced-motion:reduce){.bunny-orb{animation:none}}
-@media(max-width:380px){.bunny-float{right:13px;bottom:calc(14px + env(safe-area-inset-bottom))}.bunny-orb{width:68px;height:68px;min-width:68px}}
+@keyframes bunnyIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){.bunny-character{animation:none}}
+@media(max-width:380px){.bunny-float{right:10px;bottom:calc(12px + env(safe-area-inset-bottom))}.bunny-character{width:76px;height:92px;min-width:76px}}
 </style></head><body><main><aside class="bunny-float" aria-label="奶糖兔兔互動夥伴">
   <div class="bunny-dialog" id="bunnyDialog" hidden>
     <button class="dialog-close" id="bunnyClose" type="button" aria-label="關閉對話">×</button>
@@ -252,8 +251,7 @@ input::placeholder{color:#a18da0}
     <p id="bunnyMessage" aria-live="polite">嗨！今天也一起照顧好我們的錢包吧！♡</p>
     <button id="potionButton" type="button">設定本月預算</button>
   </div>
-  <button id="bunnyTap" class="bunny-orb" type="button" aria-label="和奶糖兔兔互動" aria-expanded="false" aria-controls="bunnyDialog">
-    <span class="orb-sparkle" aria-hidden="true">★</span>
+  <button id="bunnyTap" class="bunny-character" type="button" aria-label="和奶糖兔兔互動" aria-expanded="false" aria-controls="bunnyDialog">
     <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="白色像素兔兔">
       <g fill="#fffdf8"><rect x="5" y="0" width="3" height="7"/><rect x="12" y="0" width="3" height="7"/><rect x="4" y="5" width="12" height="11"/><rect x="6" y="15" width="8" height="3"/><rect x="3" y="8" width="2" height="5"/><rect x="15" y="8" width="2" height="5"/><rect x="14" y="15" width="3" height="3"/></g>
       <g fill="#f2b4cb"><rect x="6" y="2" width="1" height="4"/><rect x="13" y="2" width="1" height="4"/><rect x="4" y="10" width="2" height="2"/><rect x="14" y="10" width="2" height="2"/></g>
