@@ -117,15 +117,16 @@ h2{padding-bottom:7px;border-bottom:2px dashed #e4c4dc}
 .stat:nth-child(2n){background:#f4f0ff;border-color:#cfc3e8}
 .stat strong{color:#76516f}
 .daily{
-  position:relative;max-width:260px;min-height:170px;margin:20px auto 4px;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;
-  border:5px double #a77c9c;border-radius:50%;
-  background:radial-gradient(circle,#fffaff 48%,#f9e5f1 49%,#f9e5f1 58%,#e8dff6 59%,#fffaff 72%);
-  box-shadow:0 0 0 5px #f2d2e3,0 0 0 9px #fffaff,0 0 0 12px #c6b3d8
+  position:relative;width:100%;max-width:none;min-height:0;margin:14px 0 4px;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;
+  padding:16px 12px;
+  border:3px solid #a77c9c;border-radius:0;
+  background:#fff8e8;
+  box-shadow:3px 3px 0 #e6cce0, inset 0 0 0 3px #fffdf8;
 }
-.daily:before,.daily:after{position:absolute;color:#d5ad58;font-size:20px}
-.daily:before{content:"★";top:13px;left:34px}
-.daily:after{content:"☆";right:32px;bottom:13px}
+.daily:before,.daily:after{position:absolute;color:#d5ad58;font-size:16px}
+.daily:before{content:"★";top:5px;left:8px}
+.daily:after{content:"☆";right:8px;bottom:5px}
 .daily strong{font-size:29px;color:#855d83;text-shadow:1px 1px #f4d7e8}
 button{
   border:3px solid #85627f;border-radius:0;
