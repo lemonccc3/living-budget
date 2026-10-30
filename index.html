@@ -363,5 +363,6 @@ setBudget.onclick=()=>{let y=viewY,m=viewM,v=prompt('設定 '+y+' 年 '+(m+1)+' 
 prev.onclick=()=>{if(--viewM<0){viewM=11;viewY--}selected=dk(viewY,viewM,1);render()};next.onclick=()=>{if(++viewM>11){viewM=0;viewY++}selected=dk(viewY,viewM,1);render()};
 exportBtn.onclick=()=>{let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.download='不要再亂花了備份-'+today+'.json';a.click()};
 importBtn.onclick=()=>importFile.click();importFile.onchange=async()=>{try{let s=JSON.parse(await importFile.files[0].text());if(!s.budgets||!Array.isArray(s.expenses)||!Array.isArray(s.planned))throw 0;s.incomes=Array.isArray(s.incomes)?s.incomes:[];s.plannedIncomes=(Array.isArray(s.plannedIncomes)?s.plannedIncomes:[]).map(x=>({...x,amountType:x.amountType||'exact'}));state=s;save();render();alert('匯入完成')}catch(e){alert('備份檔無法讀取')}};
+processMonthlyRollover();
 render();
 </script></body></html>
