@@ -238,7 +238,7 @@ input::placeholder{color:#a18da0}
 .bunny-dialog[hidden]{display:none}
 .bunny-dialog:after{content:"";position:absolute;right:22px;bottom:-11px;width:17px;height:17px;background:#fffaff;border-right:3px solid #986f91;border-bottom:3px solid #986f91;transform:rotate(45deg)}
 .bunny-dialog .chat-label{display:block;color:#a66c94;font-size:12px;font-weight:900;margin-bottom:7px}
-.bunny-dialog p{white-space:pre-line;margin:0 0 11px;padding:10px 11px;background:#fff0f7;border:2px solid #e4c6dd;border-radius:10px;color:#5e4b65;font-size:13px;line-height:1.65;min-height:48px}
+.bunny-dialog .quote-layout{margin:0 0 11px;display:grid;gap:9px;color:#5e4b65;font-size:13px;line-height:1.65}.quote-author{font-weight:900;color:#805579;padding:0 2px}.quote-original{padding:11px;background:#fff0f7;border:2px solid #e4c6dd;border-radius:10px;font-size:14px}.quote-translation{padding:10px 11px;background:#f2effb;border:2px dashed #c9b9df;border-radius:10px;color:#655875;font-size:12px}.quote-translation:before{content:"翻譯／白話";display:block;margin-bottom:4px;font-size:10px;font-weight:900;color:#8b73a2}
 .dialog-close{position:absolute;right:8px;top:6px;border:0;background:transparent;box-shadow:none;color:#98758f;font-size:21px;padding:0 5px;min-width:28px;min-height:28px}
 #potionButton{font-size:12px;padding:8px 12px;background:#e9e0f7;border-color:#9b83b3;color:#55436c;border-radius:9px}
 @keyframes bunnyIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
@@ -248,7 +248,7 @@ input::placeholder{color:#a18da0}
   <div class="bunny-dialog" id="bunnyDialog" hidden>
     <button class="dialog-close" id="bunnyClose" type="button" aria-label="關閉對話">×</button>
     <span class="chat-label">☆ 今日名言 ☆</span>
-    <p id="bunnyMessage" aria-live="polite">孔子：「知之者不如好之者，好之者不如樂之者。」</p>
+    <div id="bunnyMessage" class="quote-layout" aria-live="polite"><div class="quote-author">孔子《論語》</div><div class="quote-original">「知之者不如好之者，好之者不如樂之者。」</div></div>
     
   </div>
   <button id="bunnyTap" class="bunny-character" type="button" aria-label="和크림互動" aria-expanded="false" aria-controls="bunnyDialog">
@@ -316,7 +316,7 @@ function petBunny(){
   let next=Math.floor(Math.random()*bunnyQuotes.length);
   if(bunnyQuotes.length>1&&next===bunnyQuoteIndex)next=(next+1)%bunnyQuotes.length;
   bunnyQuoteIndex=next;
-  bunnyMessage.textContent=bunnyQuotes[next].author+'：\n「'+bunnyQuotes[next].quote+'」\n'+bunnyQuotes[next].translation;
+  const q=bunnyQuotes[next];\n  bunnyMessage.replaceChildren();\n  const author=document.createElement('div');author.className='quote-author';author.textContent=q.author;\n  const original=document.createElement('div');original.className='quote-original';original.textContent='「'+q.quote+'」';\n  bunnyMessage.append(author,original);\n  if(q.translation){const translation=document.createElement('div');translation.className='quote-translation';translation.textContent=q.translation.replace(/^(翻譯|白話)：?\\s*/, '');bunnyMessage.append(translation);}
 }
 bunnyTap.onclick=petBunny;
 bunnyClose.onclick=()=>{bunnyDialog.hidden=true;bunnyTap.setAttribute('aria-expanded','false');};
