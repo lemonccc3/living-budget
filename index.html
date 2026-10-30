@@ -271,6 +271,18 @@ function mk(y,m){return y+'-'+pad(m+1)}
 function bf(y,m){return Number(state.budgets[mk(y,m)]??state.defaultBudget??0)}
 function mi(a,y,m){let p=mk(y,m)+'-';return a.filter(x=>x.date.startsWith(p))}
 function sum(a){return a.reduce((s,x)=>s+Number(x.amount),0)}
+function processMonthlyRollover(){
+  if(now.getDate()!==1)return;
+  state.rollovers=state.rollovers&&typeof state.rollovers==='object'?state.rollovers:{};
+  const y=now.getFullYear(),m=now.getMonth(),key=mk(y,m);
+  if(state.rollovers[key])return;
+  const prev=new Date(y,m-1,1),py=prev.getFullYear(),pm=prev.getMonth();
+  const previousBalance=bf(py,pm)+sum(mi(state.incomes,py,pm))-sum(mi(state.expenses,py,pm))-sum(mi(state.planned,py,pm));
+  const baseBudget=bf(y,m);
+  state.budgets[key]=baseBudget+previousBalance;
+  state.rollovers[key]={from:mk(py,pm),balance:previousBalance,baseBudget,totalBudget:state.budgets[key]};
+  save();
+}
 function esc(s){let d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function summary(){let y=viewY,m=viewM,b=bf(y,m),inc=sum(mi(state.incomes,y,m)),sp=sum(mi(state.expenses,y,m)),pl=sum(mi(state.planned,y,m)),pinc=sum(mi(state.plannedIncomes,y,m)),av=b+inc-sp-pl,last=new Date(y,m+1,0).getDate(),isCurrent=y===now.getFullYear()&&m===now.getMonth(),isFuture=y>now.getFullYear()||(y===now.getFullYear()&&m>now.getMonth()),ds=isCurrent?Math.max(1,last-now.getDate()+1):isFuture?last:0;monthLabel.textContent=y+' 年 '+(m+1)+' 月概況';budget.textContent=money(b);income.textContent=money(inc);plannedIncome.textContent=money(pinc);spent.textContent=money(sp);planned.textContent=money(pl);available.textContent=money(av);available.classList.toggle('danger',av<0);days.textContent=isFuture?last+' 天':isCurrent?ds+' 天':'已結束';document.querySelector('.daily .muted').textContent=isFuture?'這個月平均每天可以花':isCurrent?'從今天到月底，平均每天可以花':'此月份最終平均每日可用';daily.textContent=money(Math.max(0,av/(ds||last)))}
 function cal(){calTitle.textContent=viewY+' 年 '+(viewM+1)+' 月';calendar.innerHTML='';let f=new Date(viewY,viewM,1).getDay(),l=new Date(viewY,viewM+1,0).getDate();for(let i=0;i<f;i++)calendar.append(document.createElement('div'));for(let d=1;d<=l;d++){let k=dk(viewY,viewM,d),inc=state.incomes.some(x=>x.date===k),ex=state.expenses.some(x=>x.date===k),pl=state.planned.some(x=>x.date===k),pi=state.plannedIncomes.some(x=>x.date===k),b=document.createElement('button');b.className='day'+(k===selected?' sel':'')+(k===today?' today':'');b.innerHTML='<div>'+d+'</div><div class="dots">'+(inc?'<span class="income">●</span> ':'')+(ex?'<span class="expense">●</span>':'')+(pl?' ○':'')+(pi?' <span class="income">○</span>':'')+'</div>';b.onclick=()=>{selected=k;cal()};calendar.append(b)}day()}
