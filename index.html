@@ -238,7 +238,7 @@ input::placeholder{color:#a18da0}
 .bunny-dialog[hidden]{display:none}
 .bunny-dialog:after{content:"";position:absolute;right:22px;bottom:-11px;width:17px;height:17px;background:#fffaff;border-right:3px solid #986f91;border-bottom:3px solid #986f91;transform:rotate(45deg)}
 .bunny-dialog .chat-label{display:block;color:#a66c94;font-size:12px;font-weight:900;margin-bottom:7px}
-.bunny-dialog p{margin:0 0 11px;padding:10px 11px;background:#fff0f7;border:2px solid #e4c6dd;border-radius:10px;color:#5e4b65;font-size:13px;line-height:1.65;min-height:48px}
+.bunny-dialog p{white-space:pre-line;margin:0 0 11px;padding:10px 11px;background:#fff0f7;border:2px solid #e4c6dd;border-radius:10px;color:#5e4b65;font-size:13px;line-height:1.65;min-height:48px}
 .dialog-close{position:absolute;right:8px;top:6px;border:0;background:transparent;box-shadow:none;color:#98758f;font-size:21px;padding:0 5px;min-width:28px;min-height:28px}
 #potionButton{font-size:12px;padding:8px 12px;background:#e9e0f7;border-color:#9b83b3;color:#55436c;border-radius:9px}
 @keyframes bunnyIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
@@ -289,17 +289,25 @@ planForm.onsubmit=e=>{e.preventDefault();let name=pName.value.trim(),date=pDate.
 piDate.value=pDate.value=today;incomeToday.textContent=today;expenseToday.textContent=today;
 refreshApp.onclick=()=>{location.replace(location.pathname+'?refresh='+Date.now())};
 const bunnyQuotes=[
-  '孔子：「知之者不如好之者，好之者不如樂之者。」',
-  '老子：「千里之行，始於足下。」',
-  '荀子：「不積跬步，無以至千里。」',
-  '孟子：「生於憂患，死於安樂。」',
-  '陶淵明：「盛年不重來，一日難再晨。」',
-  '李白：「天生我材必有用。」',
-  '蘇軾：「回首向來蕭瑟處，歸去，也無風雨也無晴。」',
-  '王之渙：「欲窮千里目，更上一層樓。」',
-  '莎士比亞：「凡是過去，皆為序章。」',
-  '愛因斯坦：「想像力比知識更重要。」',
-  '海倫・凱勒：「人生最大的幸福，是確信有人愛我們。」'
+  {author:'孔子《論語》',quote:'學而時習之，不亦說乎？',translation:'白話：學到知識後，常常溫習、練習，不也是一件令人愉快的事嗎？'},
+  {author:'孔子《論語》',quote:'三人行，必有我師焉。',translation:'白話：幾個人一起走路，其中一定有人有值得我學習的地方。'},
+  {author:'老子《道德經》',quote:'千里之行，始於足下。',translation:'白話：再遠的路，也要從腳下的第一步開始。'},
+  {author:'荀子《勸學》',quote:'不積跬步，無以至千里；不積小流，無以成江海。',translation:'白話：不累積每一小步，就無法走到千里之外；不匯集細小水流，就形成不了江海。'},
+  {author:'《周易》',quote:'天行健，君子以自強不息。',translation:'白話：天體運行剛健有力，有志之士也應努力向上，永不停止。'},
+  {author:'孟子《告子下》',quote:'生於憂患，而死於安樂也。',translation:'白話：人在困難中能受到磨練而成長，沉溺安逸反而容易讓人失去警覺。'},
+  {author:'陶淵明《雜詩》',quote:'盛年不重來，一日難再晨。',translation:'白話：青春年華不會再來，一天之中也很難有第二個早晨，要珍惜時光。'},
+  {author:'王之渙《登鸛雀樓》',quote:'欲窮千里目，更上一層樓。',translation:'白話：想看見更遠的風景，就要再登上一層樓；也比喻想有更大的進步，就要繼續努力。'},
+  {author:'陸游《遊山西村》',quote:'山重水複疑無路，柳暗花明又一村。',translation:'白話：山巒重重、流水曲折，原以為前面已經沒有路，沒想到轉個彎又看見村落。比喻困境中仍可能出現轉機。'},
+  {author:'李白《將進酒》',quote:'天生我材必有用。',translation:'白話：每個人都有自己的才能，總會有能發揮所長的地方。'},
+  {author:'莎士比亞《哈姆雷特》',quote:'We know what we are, but know not what we may be.',translation:'翻譯：我們知道自己現在是什麼樣子，卻不知道未來可能成為什麼樣的人。'},
+  {author:'莎士比亞《暴風雨》',quote:'What’s past is prologue.',translation:'翻譯：過去的一切，都是接下來故事的序章。'},
+  {author:'艾蜜莉・狄金生',quote:'“Hope” is the thing with feathers —',translation:'翻譯：「希望」是一種長著羽毛的東西——（詩句以鳥作比喻，描寫希望在心中歌唱。）'},
+  {author:'路易斯・卡羅《愛麗絲鏡中奇遇》',quote:'I can’t go back to yesterday because I was a different person then.',translation:'翻譯：我無法回到昨天，因為那時的我已經和現在不同了。'},
+  {author:'梭羅《湖濱散記》',quote:'If one advances confidently in the direction of his dreams, and endeavors to live the life which he has imagined, he will meet with a success unexpected in common hours.',translation:'翻譯：如果一個人滿懷信心地朝夢想前進，努力活出自己想像的生活，就可能獲得平凡日子裡意想不到的成功。'},
+  {author:'里爾克《古代阿波羅軀幹》',quote:'You must change your life.',translation:'翻譯：你必須改變你的生活。'},
+  {author:'維克多・雨果《悲慘世界》',quote:'Even the darkest night will end and the sun will rise.',translation:'翻譯：即使最黑暗的夜晚也終將過去，太陽終會升起。'},
+  {author:'塞內卡《道德書簡》',quote:'Luck is what happens when preparation meets opportunity.',translation:'翻譯：當準備遇上機會，幸運便會發生。'},
+  {author:'馬可・奧理略《沉思錄》',quote:'The happiness of your life depends upon the quality of your thoughts.',translation:'翻譯：生活的幸福，取決於你思想的品質。'}
 ];
 let bunnyQuoteIndex=-1;
 function petBunny(){
@@ -308,7 +316,7 @@ function petBunny(){
   let next=Math.floor(Math.random()*bunnyQuotes.length);
   if(bunnyQuotes.length>1&&next===bunnyQuoteIndex)next=(next+1)%bunnyQuotes.length;
   bunnyQuoteIndex=next;
-  bunnyMessage.textContent=bunnyQuotes[next];
+  bunnyMessage.textContent=bunnyQuotes[next].author+'：\n「'+bunnyQuotes[next].quote+'」\n'+bunnyQuotes[next].translation;
 }
 bunnyTap.onclick=petBunny;
 bunnyClose.onclick=()=>{bunnyDialog.hidden=true;bunnyTap.setAttribute('aria-expanded','false');};
