@@ -178,7 +178,39 @@ label{color:#85647f}
 .forms .card{background:#fffaff}
 .forms .primary{margin-top:14px}
 #records-panel h2{border:0;margin:0}
-@media(max-width:390px){.magic-status{flex-wrap:wrap}.potion-button{max-width:none;flex:1}.magic-nav{gap:5px}.magic-nav a{font-size:10px}.welcome-copy strong{font-size:14px}}</style></head><body><main><div class="pixel-banner"><div><div class="banner-title">✧ 魔法存錢小屋 ✧</div><div class="banner-sub">和薩摩耶一起收集小小星星</div></div><div class="pixel-dog" role="img" aria-label="白色薩摩耶像素小狗"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><g fill="#fffdf7"><rect x="4" y="1" width="8" height="2"/><rect x="3" y="2" width="10" height="2"/><rect x="2" y="4" width="12" height="6"/><rect x="3" y="10" width="10" height="2"/><rect x="5" y="12" width="6" height="1"/><rect x="3" y="1" width="2" height="2"/><rect x="11" y="1" width="2" height="2"/></g><g fill="#e7b6c8"><rect x="3" y="2" width="2" height="2"/><rect x="11" y="2" width="2" height="2"/></g><g fill="#5c4650"><rect x="5" y="5" width="1" height="1"/><rect x="10" y="5" width="1" height="1"/><rect x="7" y="7" width="2" height="1"/></g><g fill="#f2b3c7"><rect x="4" y="7" width="2" height="1"/><rect x="10" y="7" width="2" height="1"/></g><g fill="#fffdf7"><rect x="1" y="6" width="2" height="3"/><rect x="13" y="6" width="2" height="3"/><rect x="4" y="11" width="2" height="2"/><rect x="10" y="11" width="2" height="2"/></g><g fill="#e9c66f"><rect x="7" y="0" width="2" height="1"/></g></svg></div></div>
+@media(max-width:390px){.magic-status{flex-wrap:wrap}.potion-button{max-width:none;flex:1}.magic-nav{gap:5px}.magic-nav a{font-size:10px}.welcome-copy strong{font-size:14px}}
+/* 圓潤可愛字體與高辨識配色 */
+:root{
+  font-family:"Arial Rounded MT Bold","Hiragino Maru Gothic ProN","Yu Gothic UI","PingFang TC","Noto Sans TC",sans-serif;
+  color:#55445f;
+  --deep:#76516f;--green:#24734f;--red:#b33f5c;
+}
+body,button,input,.planType button{
+  font-family:"Arial Rounded MT Bold","Hiragino Maru Gothic ProN","Yu Gothic UI","PingFang TC","Noto Sans TC",sans-serif;
+  letter-spacing:.02em;
+}
+h1,h2,.banner-title,.welcome-copy strong,.status-copy strong{
+  font-family:"Arial Rounded MT Bold","Hiragino Maru Gothic ProN","PingFang TC","Noto Sans TC",sans-serif;
+  letter-spacing:.04em;
+}
+.muted,label,.welcome-copy>span:last-child,.status-copy small{color:#75627a}
+.big{color:#70466f;text-shadow:1px 1px #f7dce9}
+.stat .muted,.daily .muted{font-weight:700;color:#725d76}
+.income,.incomeTag{color:#176b45}
+.expense,.expenseTag{color:#ad3654}
+.incomeTag{background:#e2f4e8;border:1px solid #83bd98}
+.expenseTag{background:#ffe5eb;border:1px solid #e5a0b1}
+#income,#plannedIncome{color:#176b45}
+#spent,#planned{color:#ad3654}
+button{color:#5e4560}
+button:focus-visible,a:focus-visible,input:focus-visible{
+  outline:3px solid #8060a8;outline-offset:2px
+}
+input{color:#55445f}
+input::placeholder{color:#a18da0}
+.record .info strong{color:#5c4560}
+.record .income,.record .expense{font-weight:800}
+</style></head><body><main><div class="pixel-banner"><div><div class="banner-title">✧ 魔法存錢小屋 ✧</div><div class="banner-sub">和薩摩耶一起收集小小星星</div></div><div class="pixel-dog" role="img" aria-label="白色薩摩耶像素小狗"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><g fill="#fffdf7"><rect x="4" y="1" width="8" height="2"/><rect x="3" y="2" width="10" height="2"/><rect x="2" y="4" width="12" height="6"/><rect x="3" y="10" width="10" height="2"/><rect x="5" y="12" width="6" height="1"/><rect x="3" y="1" width="2" height="2"/><rect x="11" y="1" width="2" height="2"/></g><g fill="#e7b6c8"><rect x="3" y="2" width="2" height="2"/><rect x="11" y="2" width="2" height="2"/></g><g fill="#5c4650"><rect x="5" y="5" width="1" height="1"/><rect x="10" y="5" width="1" height="1"/><rect x="7" y="7" width="2" height="1"/></g><g fill="#f2b3c7"><rect x="4" y="7" width="2" height="1"/><rect x="10" y="7" width="2" height="1"/></g><g fill="#fffdf7"><rect x="1" y="6" width="2" height="3"/><rect x="13" y="6" width="2" height="3"/><rect x="4" y="11" width="2" height="2"/><rect x="10" y="11" width="2" height="2"/></g><g fill="#e9c66f"><rect x="7" y="0" width="2" height="1"/></g></svg></div></div>
 <section class="magic-welcome"><div class="welcome-copy"><span class="welcome-kicker">✦ MAGIC BUDGET QUEST ✦</span><strong>嗨！今天也一起守護錢包吧 ♡</strong><span>和薩摩耶搭檔，收集每一顆存錢星星。</span></div><div class="welcome-hat" aria-hidden="true">✧<br>△</div></section>
 <div class="magic-status"><div class="status-medal">♡</div><div class="status-copy"><strong>LV.1 見習理財魔女</strong><div class="xp-track"><span></span></div><small>✦ 存錢魔力　0 / 100</small></div><button id="potionButton" type="button" class="potion-button">🧪 設定本月魔法預算</button></div>
 <nav class="magic-nav" aria-label="快速導覽"><a href="#overview">♡ 今日狀態</a><a href="#calendar-panel">✧ 月曆</a><a href="#entry-panel">♫ 記帳</a><a href="#records-panel">✦ 紀錄</a></nav>
